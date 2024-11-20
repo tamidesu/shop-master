@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: shopmaster-app
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: shopmaster-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Space_500862
+      POSTGRES_DB: ShopMaster
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
